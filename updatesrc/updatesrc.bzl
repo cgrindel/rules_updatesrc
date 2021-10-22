@@ -15,5 +15,5 @@ load(
 UpdateSrcsInfo = _UpdateSrcsInfo
 
 # Rules and Macros
-updatesrc_update = _update_src
+updatesrc_update = _updatesrc_update
 updatesrc_update_all = _updatesrc_update_all

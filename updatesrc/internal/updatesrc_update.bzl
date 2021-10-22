@@ -9,7 +9,7 @@ def _updatesrc_update_impl(ctx):
         [],
         transitive = [
             dep[UpdateSrcsInfo].update_srcs
-            for dep in deps
+            for dep in ctx.attr.deps
         ],
     )
     update_srcs = update_src_depset.to_list()

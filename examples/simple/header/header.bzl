@@ -5,7 +5,7 @@ def _header_impl(ctx):
     for src in ctx.files.srcs:
         out = ctx.actions.declare_file(src.basename + "_with_header")
         outs.append(out)
-        ctx.actions.run_shell(
+        ctx.actions.run(
             outputs = [out],
             inputs = [src],
             executable = ctx.executable._header_tool,
@@ -23,12 +23,11 @@ header = rule(
             mandatory = True,
         ),
         "_header_tool": attr.label(
-            default = "@simple_example//slow:header.sh",
+            default = "@simple_example//header:header.sh",
             executable = True,
             cfg = "host",
             allow_files = True,
         ),
     },
-    executable = True,
     doc = "Copies the output files to the workspace directory.",
 )
