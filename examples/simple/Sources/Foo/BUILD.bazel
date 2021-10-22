@@ -1,0 +1,7 @@
+load("//header:header.bzl", "header")
+
+header(
+    name = "add_headers",
+    srcs = glob(["*.txt"]),
+    header = "# Super cool header",
+)

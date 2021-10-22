@@ -10,6 +10,12 @@ source files and their outputs.\
     },
 )
 
+# UpdateSrcInfo = provider(
+#     doc = "Specifies a src that can be update from an output.",
+#     fields = {
+#     }
+# )
+
 def _update_src(src, out):
     """Creates a `struct` specifying a source file and an output file that should be used to update it.
 

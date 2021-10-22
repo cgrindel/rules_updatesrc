@@ -1,0 +1,8 @@
+workspace(name = "simple_example")
+
+local_repository(
+    name = "cgrindel_rules_updatesrc",
+    path = "../..",
+)
+
+load("@cgrindel_rules_updatesrc//updatesrc:deps.bzl", "updatesrc_rules_dependencies")
