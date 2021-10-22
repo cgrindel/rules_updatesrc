@@ -11,7 +11,7 @@ source files and their outputs.\
 )
 
 def _update_src(src, out):
-    """Creates a `struct` 
+    """Creates a `struct` specifying a source file and an output file that should be used to update it.
 
     Args:
         src: A `File` designating a file in the workspace.
