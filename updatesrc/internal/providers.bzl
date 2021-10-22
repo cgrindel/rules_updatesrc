@@ -4,17 +4,11 @@ Information about files that should be copied from the output to the workspace.\
 """,
     fields = {
         "update_srcs": """\
-A `list` of structs as created by `providers.update_src()` which specify the \
+A `depset` of structs as created by `providers.update_src()` which specify the \
 source files and their outputs.\
 """,
     },
 )
-
-# UpdateSrcInfo = provider(
-#     doc = "Specifies a src that can be update from an output.",
-#     fields = {
-#     }
-# )
 
 def _update_src(src, out):
     """Creates a `struct` specifying a source file and an output file that should be used to update it.

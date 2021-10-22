@@ -6,7 +6,6 @@ directory.
 
 def _updatesrc_update_impl(ctx):
     update_src_depset = depset(
-        [],
         transitive = [
             dep[UpdateSrcsInfo].update_srcs
             for dep in ctx.attr.deps
@@ -20,7 +19,7 @@ def _updatesrc_update_impl(ctx):
     )
 
     update_sh = ctx.actions.declare_file(
-        ctx.label.name + "_update_with_formatted.sh",
+        ctx.label.name + "_update.sh",
     )
     ctx.actions.write(
         output = update_sh,

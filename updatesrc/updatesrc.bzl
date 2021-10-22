@@ -1,6 +1,7 @@
 load(
     "//updatesrc/internal:providers.bzl",
     _UpdateSrcsInfo = "UpdateSrcsInfo",
+    _providers = "providers",
 )
 load(
     "//updatesrc/internal:updatesrc_update.bzl",
@@ -13,6 +14,7 @@ load(
 
 # Providers
 UpdateSrcsInfo = _UpdateSrcsInfo
+providers = _providers
 
 # Rules and Macros
 updatesrc_update = _updatesrc_update
