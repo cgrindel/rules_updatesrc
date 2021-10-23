@@ -1,0 +1,18 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+
+package(default_visibility = ["//visibility:public"])
+
+bzl_library(
+    name = "deps",
+    srcs = ["deps.bzl"],
+)
+
+bzl_library(
+    name = "updatesrc",
+    srcs = ["updatesrc.bzl"],
+    deps = [
+        "//updatesrc/internal:providers",
+        "//updatesrc/internal:updatesrc_update",
+        "//updatesrc/internal:updatesrc_update_all",
+    ],
+)
