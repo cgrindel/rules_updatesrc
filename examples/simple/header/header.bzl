@@ -1,12 +1,16 @@
-load("@cgrindel_rules_updatesrc//updatesrc:updatesrc.bzl", "UpdateSrcsInfo", "providers")
+load(
+    "@cgrindel_rules_updatesrc//updatesrc:updatesrc.bzl",
+    "UpdateSrcsInfo",
+    "update_srcs",
+)
 
 def _header_impl(ctx):
     outs = []
-    update_srcs = []
+    updsrcs = []
     for src in ctx.files.srcs:
         out = ctx.actions.declare_file(src.basename + "_with_header")
         outs.append(out)
-        update_srcs.append(providers.update_src(src = src, out = out))
+        updsrcs.append(update_srcs.create(src = src, out = out))
         ctx.actions.run(
             outputs = [out],
             inputs = [src],
@@ -16,7 +20,7 @@ def _header_impl(ctx):
 
     return [
         DefaultInfo(files = depset(outs)),
-        UpdateSrcsInfo(update_srcs = depset(update_srcs)),
+        UpdateSrcsInfo(update_srcs = depset(updsrcs)),
     ]
 
 header = rule(

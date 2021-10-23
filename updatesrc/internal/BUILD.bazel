@@ -8,10 +8,16 @@ bzl_library(
 )
 
 bzl_library(
+    name = "update_srcs",
+    srcs = ["update_srcs.bzl"],
+)
+
+bzl_library(
     name = "updatesrc_update",
     srcs = ["updatesrc_update.bzl"],
     deps = [
         ":providers",
+        ":update_srcs",
     ],
 )
 

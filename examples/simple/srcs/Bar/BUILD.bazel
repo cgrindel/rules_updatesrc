@@ -1,13 +1,18 @@
 load("//header:header.bzl", "header")
 load("@cgrindel_rules_updatesrc//updatesrc:updatesrc.bzl", "updatesrc_update")
 
-header(
-    name = "add_headers",
-    srcs = glob(["*.txt"]),
-    header = "# Super cool header",
+genrule(
+    name = "c_modified",
+    srcs = ["c.txt"],
+    outs = ["c.txt_modified"],
+    cmd = """\
+echo "# Howdy" > $@
+cat $(location c.txt) >> $@
+""",
 )
 
 updatesrc_update(
     name = "update",
-    deps = [":add_headers"],
+    srcs = ["c.txt"],
+    outs = [":c_modified"],
 )
