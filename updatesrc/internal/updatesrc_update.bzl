@@ -1,8 +1,8 @@
 load(":providers.bzl", "UpdateSrcsInfo")
 load(":update_srcs.bzl", "update_srcs")
 
-"""A binary rule that copies the formatted Swift sources to the workspace 
-directory.
+"""A binary rule that updates the specified source files using the specified \
+output files.\
 """
 
 def _updatesrc_update_impl(ctx):
@@ -23,7 +23,6 @@ srcs: {srcs_len}, outs: {outs_len}\
         updsrcs.append(update_srcs.create(src = src, out = out))
 
     update_src_depset = depset(
-        # [update_srcs.from_json(json_str) for json_str in ctx.attr.update_srcs],
         updsrcs,
         transitive = [
             dep[UpdateSrcsInfo].update_srcs
@@ -60,9 +59,19 @@ updatesrc_update = rule(
     implementation = _updatesrc_update_impl,
     attrs = {
         "srcs": attr.label_list(
+            doc = """\
+Source files that will be updated by the files listed in the `outs` attribute. \
+Every file listed in the `srcs` attribute must have a corresponding output \
+file listed in the `outs` attribute.\
+""",
             allow_files = True,
         ),
         "outs": attr.label_list(
+            doc = """\
+Output files that will be used to update the files listed in the `srcs` \
+attribute. Every file listed in the `outs` attribute must have a corresponding \
+source file list in the `srcs` attribute.\
+""",
             allow_files = True,
         ),
         "deps": attr.label_list(
@@ -71,5 +80,18 @@ updatesrc_update = rule(
         ),
     },
     executable = True,
-    doc = "Copies the output files to the workspace directory.",
+    doc = """\
+Updates the source files in the workspace directory using the specified output \
+files.
+
+There are two ways to specify the update mapping for this rule. 
+
+Option #1: You can specify a list of source files and output files using the \
+`srcs` and `outs` attributes, respectively. The source file at index 'n' in \
+the `srcs` list will be updated by the output file at index 'n' in the `outs` \
+list.
+
+Option #2: Rules that provide `UpdateSrcsInfo` can be specified in the `deps` \
+attribute.
+""",
 )
