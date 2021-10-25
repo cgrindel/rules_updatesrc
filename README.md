@@ -7,7 +7,9 @@ Bazel output directories to the workspace directory.
 
 Have you ever wanted to copy the output of a Bazel build step to your source directory (e.g.,
 generated documentation, formatted source files)? Instead of recreating the logic to perform this
-trick in every Bazel project, I consolidated the logic here in this repository.
+trick in every Bazel project, try using the
+[updatesrc_update](/doc/rules_and_macros_overview.md#updatesrc_update) rule and the
+[updatesrc_update_all](/doc/rules_and_macros_overview.md#updatesrc_update_all) macro.
 
 ## Quickstart
 
@@ -80,4 +82,8 @@ targets, run the update all target at the root of your workspace.
 $ bazel run //:update_all
 ```
 
+## Learn More
 
+- [How to Use `rules_updatesrc`](/doc/how_to.md)
+- Check out [the examples](/examples)
+- Peruse [the documentation](/doc)

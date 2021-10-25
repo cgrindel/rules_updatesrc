@@ -7,6 +7,9 @@ There are two primary parts to the functionality in `rules_updatesrc`.
    an executable target that knows how to execute all of the
    [updatesrc_update](/doc/rules_and_macros_overview.md#updatesrc_update) targets.
 
+The remainder of this article describes how to use the rules and macros in this repository. Also,
+check out [the examples](/examples) to see these techniques in action.
+
 ## Copy Files to the Workspace Directory with `updatesrc_update`
 
 The [updatesrc_update](/doc/rules_and_macros_overview.md#updatesrc_update) rule defines an
