@@ -1,5 +1,7 @@
-load("//header:header.bzl", "header")
-load("@cgrindel_rules_updatesrc//updatesrc:updatesrc.bzl", "updatesrc_update")
+load(
+    "@cgrindel_rules_updatesrc//updatesrc:updatesrc.bzl",
+    "updatesrc_update",
+)
 
 genrule(
     name = "c_modified",
