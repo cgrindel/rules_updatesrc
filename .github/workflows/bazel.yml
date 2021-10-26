@@ -38,5 +38,4 @@ jobs:
       shell: bash
       run: |
         cd examples/simple
-        # bazelisk run //:update_all
-        bazelisk test //... 
+        bazelisk run //:update_all
