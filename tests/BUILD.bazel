@@ -28,6 +28,18 @@ _LETTER_OUTS = [":" + letter + "_modified" for letter in _LETTERS]
 
 [
     genrule(
+        name = letter + "_src",
+        srcs = [],
+        outs = [letter + ".txt"],
+        cmd = """\
+    echo "This is {letter}.txt." > $@
+    """.format(letter = letter),
+    )
+    for letter in _LETTERS
+]
+
+[
+    genrule(
         name = letter + "_modified",
         srcs = [letter + ".txt"],
         outs = [letter + ".txt_modified"],
