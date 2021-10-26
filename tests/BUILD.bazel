@@ -9,6 +9,8 @@ load(
 )
 load(":letters.bzl", "letters")
 
+# MARK: - Build Tests
+
 build_test(
     name = "public_api",
     targets = [
@@ -16,6 +18,8 @@ build_test(
         "//updatesrc:updatesrc",
     ],
 )
+
+# MARK: - Update Tests
 
 _LETTERS = [
     "a",
@@ -31,23 +35,6 @@ _LETTER_STRUCTS = [
 _LETTER_SRCS = [ls.src for ls in _LETTER_STRUCTS]
 
 _LETTER_OUT_NAMES = [":" + ls.out_name for ls in _LETTER_STRUCTS]
-
-# _LETTER_TUPLES = [
-#     (
-#         letter,
-#         letter + ".txt",
-#         letter + ".txt_modified",
-#     )
-#     for letter in _LETTERS
-# ]
-
-# _LETTER_SRCS = [lt[1] for lt in _LETTERS]
-
-# _LETTER_OUTS = [":" + letter + "_modified" for letter in _LETTERS]
-
-# _LETTER_SRCS = [letter + ".txt" for letter in _LETTERS]
-
-# _LETTER_OUTS = [":" + letter + "_modified" for letter in _LETTERS]
 
 [
     genrule(
