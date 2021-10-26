@@ -1,1 +1,3 @@
-exports_files(["update_all.sh"])
+exports_files([
+    "update_all.sh",
+])

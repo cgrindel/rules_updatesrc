@@ -13,15 +13,6 @@ def _create(src, out):
         out = out,
     )
 
-# def _to_json(src, out):
-#     update_src = _update_src(src, out)
-#     return json.encode(update_src)
-
-# def _from_json(json_str):
-#     return json.decode(json_str)
-
 update_srcs = struct(
     create = _create,
-    # to_json = _to_json,
-    # from_json = _from_json,
 )

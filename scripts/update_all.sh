@@ -7,9 +7,17 @@ set -uo pipefail
 
 cd "${BUILD_WORKSPACE_DIRECTORY}"
 
-bazel_query="kind(updatesrc_update, //...)"
-update_targets=( $(bazel query "${bazel_query}" | sort) )
+# Collect targets that have been specified on the command-line
+targets_to_run=("${@:-}")
 
-for target in "${update_targets[@]}" ; do
+# Query for any 'updatesrc_update' targets
+bazel_query="kind(updatesrc_update, //...)"
+targets_to_run+=( $(bazel query "${bazel_query}" | sort) )
+
+# Execute each target
+for target in "${targets_to_run[@]}" ; do
+  if [[ -z "${target:-}" ]]; then
+    continue
+  fi
   bazel run "${target}"
 done
