@@ -168,6 +168,8 @@ To copy the output files to the source directory, you execute the
 $ bazel run //path/to/pkg:update
 ```
 
+A [working example](/examples/simple/srcs/Foo/BUILD.bazel) is located in the examples directory.
+
 ## Execute All of Your `updatesrc_update` Targets using `updatesrc_update_all`
 
 Once you start using the [updatesrc_update](/doc/rules_and_macros_overview.md#updatesrc_update) rule,
