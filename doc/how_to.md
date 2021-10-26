@@ -1,6 +1,6 @@
 # How to Use `rules_updatesrc`
 
-There are two primary parts to the functionality in `rules_updatesrc`.
+There are two parts to the functionality in `rules_updatesrc`.
 1. The [updatesrc_update](/doc/rules_and_macros_overview.md#updatesrc_update) rule defines an
    executable target that knows how to copy specific build outputs to the source directory. 
 2. The [updatesrc_update_all](/doc/rules_and_macros_overview.md#updatesrc_update_all) macro defines
