@@ -16,16 +16,17 @@ trick in every Bazel project, try using the
 The following provides a quick introduction on how to use the rules in this repository. Also, check
 out [the documentation](/doc/) and [the examples](/examples/) for more information.
 
-### 1. Configure your workspace to use `rules_swiftformat`
+### 1. Configure your workspace to use `rules_updatesrc`
 
 Add the following to your `WORKSPACE` file to add this repository and its dependencies.
 
 ```python
 
-# TODO: FIX ME!
-local_repository(
+http_archive(
     name = "cgrindel_rules_updatesrc",
-    path = "../rules_updatesrc"
+    sha256 = "18eb6620ac4684c2bc722b8fe447dfaba76f73d73e2dfcaf837f542379ed9bc3",
+    strip_prefix = "rules_updatesrc-0.1.0",
+    urls = ["https://github.com/cgrindel/rules_updatesrc/archive/v0.1.0.tar.gz"],
 )
 
 load(
