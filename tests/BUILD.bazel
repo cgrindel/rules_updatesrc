@@ -7,6 +7,7 @@ load(
     "//updatesrc/internal:updatesrc_update.bzl",
     "updatesrc_update",
 )
+load(":letters.bzl", "letters")
 
 build_test(
     name = "public_api",
@@ -22,44 +23,66 @@ _LETTERS = [
     "c",
 ]
 
-_LETTER_SRCS = [letter + ".txt" for letter in _LETTERS]
+_LETTER_STRUCTS = [
+    letters.create(letter)
+    for letter in _LETTERS
+]
 
-_LETTER_OUTS = [":" + letter + "_modified" for letter in _LETTERS]
+_LETTER_SRCS = [ls.src for ls in _LETTER_STRUCTS]
+
+_LETTER_OUT_NAMES = [":" + ls.out_name for ls in _LETTER_STRUCTS]
+
+# _LETTER_TUPLES = [
+#     (
+#         letter,
+#         letter + ".txt",
+#         letter + ".txt_modified",
+#     )
+#     for letter in _LETTERS
+# ]
+
+# _LETTER_SRCS = [lt[1] for lt in _LETTERS]
+
+# _LETTER_OUTS = [":" + letter + "_modified" for letter in _LETTERS]
+
+# _LETTER_SRCS = [letter + ".txt" for letter in _LETTERS]
+
+# _LETTER_OUTS = [":" + letter + "_modified" for letter in _LETTERS]
 
 [
     genrule(
-        name = letter + "_src",
+        name = ls.src_name,
         srcs = [],
-        outs = [letter + ".txt"],
+        outs = [ls.src],
         cmd = """\
-    echo "This is {letter}.txt." > $@
-    """.format(letter = letter),
+echo "This is {filename}." > $@
+""".format(filename = ls.src),
     )
-    for letter in _LETTERS
+    for ls in _LETTER_STRUCTS
 ]
 
 [
     genrule(
-        name = letter + "_modified",
-        srcs = [letter + ".txt"],
-        outs = [letter + ".txt_modified"],
+        name = ls.out_name,
+        srcs = [ls.src],
+        outs = [ls.out],
         cmd = """\
-    echo "# Howdy" > $@
-    cat $(location {letter}.txt) >> $@
-    """.format(letter = letter),
+echo "# Howdy" > $@
+cat $(location {filename}) >> $@
+""".format(filename = ls.src),
     )
-    for letter in _LETTERS
+    for ls in _LETTER_STRUCTS
 ]
 
 updatesrc_update(
     name = "src_out",
     srcs = _LETTER_SRCS,
-    outs = _LETTER_OUTS,
+    outs = _LETTER_OUT_NAMES,
 )
 
 updatesrc_update_test(
     name = "src_out_test",
     srcs = _LETTER_SRCS,
-    outs = _LETTER_OUTS,
+    outs = _LETTER_OUT_NAMES,
     update_target = ":src_out",
 )
