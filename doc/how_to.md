@@ -27,7 +27,7 @@ directory. There are two ways to specify files to copy.
 
 This option is useful if you are generating files with a
 [genrule](https://docs.bazel.build/versions/main/be/general.html#genrule) or something similar. In
-the same Bazel package as the the `genrule`, you define a
+the same Bazel package as the the `genrule`, you define an
 [updatesrc_update](/doc/rules_and_macros_overview.md#updatesrc_update) target specifying the source
 files using the `srcs` attribute and the output files using the `outs` attribute.  The source list
 and output list must evaluate to file lists that have the same length, as the contents of the n-th
