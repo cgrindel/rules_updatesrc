@@ -42,7 +42,12 @@ srcs: {srcs_len}, outs: {outs_len}\
         content = """
 #!/usr/bin/env bash
 runfiles_dir=$(pwd)
-cd $BUILD_WORKSPACE_DIRECTORY
+
+# When run from a test, build workspace directory is not set. The
+# source copy just happens in the sandbox.
+if [[ ! -z "${BUILD_WORKSPACE_DIRECTORY}" ]]; then
+  cd "${BUILD_WORKSPACE_DIRECTORY}"
+fi
 """ + "\n".join([
             "cp -f $(readlink \"${{runfiles_dir}}/{out}\") {src}".format(
                 src = updsrc.src.short_path,

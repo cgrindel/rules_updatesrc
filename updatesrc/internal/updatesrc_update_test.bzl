@@ -12,7 +12,9 @@ srcs: {srcs_len}, outs: {outs_len}\
             outs_len = outs_len,
         ))
 
-    runfiles = ctx.runfiles(files = ctx.files.srcs + ctx.files.outs)
+    runfiles = ctx.runfiles(
+        files = [ctx.file.update_target] + ctx.files.srcs + ctx.files.outs,
+    )
 
     validate_update_sh = ctx.actions.declare_file(
         ctx.label.name + "_validate_update.sh",
@@ -25,28 +27,21 @@ srcs: {srcs_len}, outs: {outs_len}\
 
 set -uo pipefail
 
-# DEBUG BEGIN
-set -x
-# DEBUG END
-
 assert_different() {
-    local src="${1}"
-    local out="${2}"
-    diff "${src}" "${out}" && \
-        echo >&2 "Expected files to differ. src: ${src}, out: ${out}" \
-        && return -1
+  local src="${1}"
+  local out="${2}"
+  diff  "${src}" "${out}" && \
+    (echo >&2 "Expected files to differ. src: ${src}, out: ${out}" \
+    && return -1)
 }
 
 assert_same() {
-    local src="${1}"
-    local out="${2}"
-    diff "${src}" "${out}" || \
-        echo >&2 "Expected files to be same. src: ${src}, out: ${out}" \
-        && return -1
+  local src="${1}"
+  local out="${2}"
+  diff  "${src}" "${out}" || \
+    (echo >&2 "Expected files to be same. src: ${src}, out: ${out}" \
+    && return -1)
 }
-
-# runfiles_dir=$(pwd)
-# cd $BUILD_WORKSPACE_DIRECTORY
 
 # Make sure that src and out are different.
 """ + "\n".join([
@@ -58,10 +53,12 @@ assert_same() {
         ]) + """
 
 # Execute the update
-
+{update_exec}
 
 # Make sure that src and out are the same.
-""" + "\n".join([
+""".format(
+            update_exec = ctx.executable.update_target.short_path,
+        ) + "\n".join([
             "assert_same {src} {out}".format(
                 src = src.short_path,
                 out = ctx.files.outs[idx].short_path,
@@ -70,13 +67,15 @@ assert_same() {
         ]),
     )
 
-    return DefaultInfo(executable = validate_update_sh, runfiles = runfiles)
+    return [DefaultInfo(executable = validate_update_sh, runfiles = runfiles)]
 
 updatesrc_update_test = rule(
     implementation = _updatesrc_update_test_impl,
     attrs = {
         "update_target": attr.label(
             allow_single_file = True,
+            executable = True,
+            cfg = "host",
         ),
         "srcs": attr.label_list(
             allow_files = True,
@@ -86,13 +85,6 @@ updatesrc_update_test = rule(
             allow_files = True,
             mandatory = True,
         ),
-        # "_validation_script": attr.label(
-        #     executable = True,
-        #     default = "//scripts:validate_update.sh",
-        # ),
     },
     test = True,
 )
-
-# def updatesrc_update_test(name, srcs, outs):
-#     pass
