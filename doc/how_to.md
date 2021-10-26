@@ -1,6 +1,6 @@
 # How to Use `rules_updatesrc`
 
-There are two primary parts to the functionality in `rules_updatesrc`.
+There are two parts to the functionality in `rules_updatesrc`.
 1. The [updatesrc_update](/doc/rules_and_macros_overview.md#updatesrc_update) rule defines an
    executable target that knows how to copy specific build outputs to the source directory. 
 2. The [updatesrc_update_all](/doc/rules_and_macros_overview.md#updatesrc_update_all) macro defines
@@ -27,7 +27,7 @@ directory. There are two ways to specify files to copy.
 
 This option is useful if you are generating files with a
 [genrule](https://docs.bazel.build/versions/main/be/general.html#genrule) or something similar. In
-the same Bazel package as the the `genrule`, you define a
+the same Bazel package as the the `genrule`, you define an
 [updatesrc_update](/doc/rules_and_macros_overview.md#updatesrc_update) target specifying the source
 files using the `srcs` attribute and the output files using the `outs` attribute.  The source list
 and output list must evaluate to file lists that have the same length, as the contents of the n-th
@@ -167,6 +167,8 @@ To copy the output files to the source directory, you execute the
 ```sh
 $ bazel run //path/to/pkg:update
 ```
+
+A [working example](/examples/simple/srcs/Foo/BUILD.bazel) is located in the examples directory.
 
 ## Execute All of Your `updatesrc_update` Targets using `updatesrc_update_all`
 

@@ -13,8 +13,24 @@ cat $(location c.txt) >> $@
 """,
 )
 
+genrule(
+    name = "d_modified",
+    srcs = ["d.txt"],
+    outs = ["d.txt_modified"],
+    cmd = """\
+echo "# Howdy" > $@
+cat $(location d.txt) >> $@
+""",
+)
+
 updatesrc_update(
     name = "update",
-    srcs = ["c.txt"],
-    outs = [":c_modified"],
+    srcs = [
+        "c.txt",
+        "d.txt",
+    ],
+    outs = [
+        ":c_modified",
+        ":d_modified",
+    ],
 )
