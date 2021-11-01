@@ -1,3 +1,4 @@
+load("@cgrindel_rules_bzlformat//bzlformat:bzlformat.bzl", "bzlformat_pkg")
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load(
     "//updatesrc/internal:updatesrc_update_test.bzl",
@@ -73,3 +74,5 @@ updatesrc_update_test(
     outs = _LETTER_OUT_NAMES,
     update_target = ":src_out",
 )
+
+bzlformat_pkg(name = "bzlformat")
