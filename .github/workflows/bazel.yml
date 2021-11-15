@@ -37,4 +37,4 @@ jobs:
     - name: Integration Tests
       shell: bash
       run: |
-        bazelisk run //examples:all_integration_tests
+        bazelisk test //examples:all_integration_tests
