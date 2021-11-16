@@ -1,3 +1,4 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@cgrindel_rules_bzlformat//bzlformat:bzlformat.bzl", "bzlformat_pkg")
 load("//updatesrc:updatesrc.bzl", "updatesrc_update_all")
 
@@ -9,3 +10,31 @@ updatesrc_update_all(
 )
 
 bzlformat_pkg(name = "bzlformat")
+
+bzl_library(
+    name = "bazel_versions",
+    srcs = ["bazel_versions.bzl"],
+    visibility = ["//:__subpackages__"],
+)
+
+# Provides the *.bazlerc files for the example workspace integration tests.
+filegroup(
+    name = "shared_bazelrc_files",
+    srcs = glob(["*.bazelrc"]),
+    visibility = ["//:__subpackages__"],
+)
+
+# The example workspaces use local_repository to reference this workspace.
+# This target collects all of the files needed for rules_spm to work in the
+# child workspaces.
+filegroup(
+    name = "local_repository_files",
+    srcs = [
+        "BUILD.bazel",
+        "WORKSPACE",
+        "//scripts:all_files",
+        "//updatesrc:all_files",
+        "//updatesrc/internal:all_files",
+    ],
+    visibility = ["//:__subpackages__"],
+)
