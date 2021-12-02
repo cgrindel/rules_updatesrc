@@ -29,18 +29,10 @@ def updatesrc_rules_dependencies():
         urls = ["https://github.com/cgrindel/rules_bzlformat/archive/v0.1.0.tar.gz"],
     )
 
-    # TODO: FIX ME
-
-    # maybe(
-    #     http_archive,
-    #     name = "cgrindel_rules_bazel_integration_test",
-    #     sha256 = "4fa679d98318df3e280e9c8b7f445cd06de7954aa0454702a62ebab8c820ce7e",
-    #     strip_prefix = "rules_bazel_integration_test-0.1.0",
-    #     urls = ["https://github.com/cgrindel/rules_bazel_integration_test/archive/v0.1.0.tar.gz"],
-    # )
-
     maybe(
-        native.local_repository,
+        http_archive,
         name = "cgrindel_rules_bazel_integration_test",
-        path = "/Users/chuck/code/cgrindel/rules_bazel_integration_test",
+        sha256 = "ef6cf463a269d969bdb3b31eed53c50d3667f02e004abc9ce7a3a2413eadca6a",
+        strip_prefix = "rules_bazel_integration_test-0.3.0",
+        urls = ["https://github.com/cgrindel/rules_bazel_integration_test/archive/v0.3.0.tar.gz"],
     )
