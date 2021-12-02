@@ -1,6 +1,10 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@cgrindel_rules_bzlformat//bzlformat:bzlformat.bzl", "bzlformat_pkg")
 load("//updatesrc:updatesrc.bzl", "updatesrc_update_all")
+load(
+    "@cgrindel_rules_bazel_integration_test//bazel_integration_test:bazel_integration_test.bzl",
+    "integration_test_utils",
+)
 
 updatesrc_update_all(
     name = "update_all",
@@ -16,6 +20,8 @@ bzl_library(
     srcs = ["bazel_versions.bzl"],
     visibility = ["//:__subpackages__"],
 )
+
+# MARK: - Related to Integration Tests
 
 # Provides the *.bazlerc files for the example workspace integration tests.
 filegroup(
@@ -35,6 +41,15 @@ filegroup(
         "//scripts:all_files",
         "//updatesrc:all_files",
         "//updatesrc/internal:all_files",
+    ],
+    visibility = ["//:__subpackages__"],
+)
+
+test_suite(
+    name = "all_integration_tests",
+    tags = integration_test_utils.DEFAULT_INTEGRATION_TEST_TAGS,
+    tests = [
+        "//examples:integration_tests",
     ],
     visibility = ["//:__subpackages__"],
 )
