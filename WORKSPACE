@@ -12,10 +12,6 @@ load("@cgrindel_bazel_doc//bazeldoc:deps.bzl", "bazeldoc_dependencies")
 
 bazeldoc_dependencies()
 
-load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
-
-bazel_skylib_workspace()
-
 load("@io_bazel_stardoc//:setup.bzl", "stardoc_repositories")
 
 stardoc_repositories()
@@ -47,6 +43,10 @@ protobuf_deps()
 load("@cgrindel_rules_bazel_integration_test//bazel_integration_test:deps.bzl", "bazel_integration_test_rules_dependencies")
 
 bazel_integration_test_rules_dependencies()
+
+load("@cgrindel_bazel_shlib//:deps.bzl", "shlib_rules_dependencies")
+
+shlib_rules_dependencies()
 
 load("//:bazel_versions.bzl", "SUPPORTED_BAZEL_VERSIONS")
 load("@build_bazel_integration_testing//tools:repositories.bzl", "bazel_binaries")
