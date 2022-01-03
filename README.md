@@ -1,5 +1,8 @@
 # Update Source File Rules for Bazel
 
+__NOTE: The functionality for this repository has moved to [cgrindel/bazel-starlib](https://github.com/cgrindel/bazel-starlib).__
+
+
 [![Build](https://github.com/cgrindel/rules_updatesrc/actions/workflows/bazel.yml/badge.svg)](https://github.com/cgrindel/rules_updatesrc/actions/workflows/bazel.yml)
 
 This repository contains [Bazel](https://bazel.build/) rules and macros that copy files from the
